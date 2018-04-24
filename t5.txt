@@ -1,0 +1,117 @@
+{% extends '::base.html.twig' %}
+2
+ 
+3
+{% block body -%}
+4
+    <h1>Book list {% if is_granted('ROLE_ADMIN') %}<span><a class="btn btn-primary btn-lg" href="{{ path('book_new') }}"
+5
+                                                            rold="button">
+6
+                Create a new entry
+7
+            </a></span>{% endif %}</h1>
+8
+ 
+9
+    <div class="table-responsive">
+10
+        <table class="records_list table table-striped table-bordered">
+11
+            <thead>
+12
+            <tr>
+13
+                {% if is_granted('ROLE_ADMIN') %}
+14
+                    <th>Id</th>
+15
+                {% endif %}
+16
+                <th>Name</th>
+17
+                <th>Author</th>
+18
+                <th>Language</th>
+19
+                <th>Publisher</th>
+20
+                <th>Summary</th>
+21
+                {% if is_granted('ROLE_ADMIN') %}
+22
+                    <th>Actions</th>
+23
+                {% endif %}
+24
+            </tr>
+25
+            </thead>
+26
+            <tbody>
+27
+            {% for entity in entities %}
+28
+                <tr>
+29
+                    {% if is_granted('ROLE_ADMIN') %}
+30
+                        <td><a href="{{ path('book_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+31
+                    {% endif %}
+32
+                    <td>{{ entity.name }}</td>
+33
+                    <td>{{ entity.author }}</td>
+34
+                    <td>{{ entity.language }}</td>
+35
+                    <td>{{ entity.publisher }}</td>
+36
+                    <td>{{ entity.summary }}</td>
+37
+                    {% if is_granted('ROLE_ADMIN') %}
+38
+                        <td style="text-align: center; vertical-align: middle;">
+39
+                            <ul style="list-style-type: none;">
+40
+                                <li>
+41
+                                    <a class="btn btn-default btn-xs"
+42
+                                       href="{{ path('book_show', { 'id': entity.id }) }}">show</a>
+43
+                                </li>
+44
+                                <li style="margin-top: 10px;">
+45
+                                    <a class="btn btn-default btn-xs"
+46
+                                       href="{{ path('book_edit', { 'id': entity.id }) }}">edit</a>
+47
+                                </li>
+48
+                            </ul>
+49
+                        </td>
+50
+                    {% endif %}
+51
+                </tr>
+52
+            {% endfor %}
+53
+            </tbody>
+54
+        </table>
+55
+    </div>
+56
+ 
+57
+ 
+58
+ 
+59
+{% endblock %}

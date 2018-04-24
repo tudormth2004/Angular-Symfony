@@ -1,0 +1,22 @@
+1
+<div id="navbar" class="navbar-collapse collapse">
+2
+                <ul class="nav navbar-nav">
+3
+                    <li><a href="{{ path('book') }}">Home</a></li>
+4
+ 
+5
+                    {% if is_granted('ROLE_ADMIN') %}
+6
+                        <li><a href="{{ path('logout') }}">Logout</a></li>
+7
+                    {% else %}
+8
+                        <li><a href="{{ path('login') }}">Login</a></li>
+9
+                    {% endif %}
+10
+                </ul>
+11
+            </div>

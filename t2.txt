@@ -1,0 +1,66 @@
+1
+namespace Custom\BookBundle\Controller;
+2
+ 
+3
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+4
+use Symfony\Component\HttpFoundation\Request;
+5
+use Symfony\Component\Security\Core\SecurityContextInterface;
+6
+ 
+7
+class SecurityController extends Controller
+8
+{
+9
+    public function loginAction(Request $request)
+10
+    {
+11
+        $session = $request->getSession();
+12
+ 
+13
+        // get the login error if there is one
+14
+        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+15
+            $error = $request->attributes->get(
+16
+                SecurityContextInterface::AUTHENTICATION_ERROR
+17
+            );
+18
+        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+19
+            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+20
+            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+21
+        } else {
+22
+            $error = '';
+23
+        }
+24
+ 
+25
+ 
+26
+        return $this->render(
+27
+            'CustomBookBundle:Security:login.html.twig',
+28
+            array(
+29
+                'error'         => $error,
+30
+            )
+31
+        );
+32
+    }
+33
+}
